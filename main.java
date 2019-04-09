@@ -1,19 +1,19 @@
 
 public class main {
   public static void main(String[] args) {
-    Famille Thoumine = new Famille();
+    Famille Thimoune = new Famille();
     Famille Ygrie = new Famille();
     Famille th = new Famille();
 
-    Femme lea = new Femme("lea","thoumine",Thoumine);
+    Femme lea = new Femme("lea","thimoune",Thimoune);
 
-    Homme nathan = new Homme("nathan","thoumine",Thoumine);
-    Homme clement = new Homme("clement","thoumine",Thoumine);
-    Homme evan = new Homme("evan","thoumine",Thoumine);
+    Homme nathan = new Homme("nathan","thimoune",Thimoune);
+    Homme clement = new Homme("clement","thimoune",Thimoune);
+    Homme evan = new Homme("evan","thimoune",Thimoune);
 
 
-    Homme arnaud = new Homme("arnaud","thoumine",Thoumine);
-    Femme nelly = new Femme("nelly","ygrie",Ygrie);
+    Homme arnaud = new Homme("arnaud","thimoune",Thimoune);
+    Femme nelly = new Femme("anna","ygrie",Ygrie);
     Femme laetitia = new Femme("laetitia","th",th);
 
     lea.setPere(nathan);
