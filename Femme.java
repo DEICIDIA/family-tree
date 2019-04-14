@@ -1,7 +1,7 @@
 public class Femme extends Personne {
 
 
-  public Femme(String prenom,String nom, Famille f) {
-    super(prenom ,nom, f);
+  public Femme(String prenom,String nom) {
+    super(prenom ,nom);
   }
 }

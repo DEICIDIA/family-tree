@@ -1,21 +1,22 @@
 
 public class main {
-  public static void main(String[] args) {
-    Famille Thimoune = new Famille();
-    Famille Ygrie = new Famille();
-    Famille th = new Famille();
-
-    Femme lea = new Femme("lea","thimoune",Thimoune);
-
-    Homme nathan = new Homme("nathan","thimoune",Thimoune);
-    Homme clement = new Homme("clement","thimoune",Thimoune);
-    Homme evan = new Homme("evan","thimoune",Thimoune);
+	
+  public main(String[] args) {
 
 
-    Homme arnaud = new Homme("arnaud","thimoune",Thimoune);
-    Femme nelly = new Femme("anna","ygrie",Ygrie);
-    Femme laetitia = new Femme("laetitia","th",th);
+    Femme camille = new Femme("camille","thoumine");
+    Femme lea = new Femme("lea","thoumine");
+    Homme nathan = new Homme("nathan","thoumine");
+    Homme clement = new Homme("clement","thoumine");
+    Homme evan = new Homme("evan","thoumine");
+    Homme arnaud = new Homme("arnaud","thoumine");
+    Femme nelly = new Femme("nelly","ygrie");
+    Femme laetitia = new Femme("laetitia","th");
+    Femme anne = new Femme("anne","thoumine");
+    Homme evanbis = new Homme("evanbis","thoumine");
 
+    anne.setPere(nathan);
+    camille.setPere(evan);
     lea.setPere(nathan);
     nathan.setPere(arnaud);
     nathan.setMere(nelly);
@@ -23,20 +24,27 @@ public class main {
     evan.setMere(nelly);
     clement.setMere(laetitia);
     clement.setPere(arnaud);
+    evanbis.setMere(lea);
+
 
     afficherEnfants(arnaud);
+    System.out.println("\n");
+    
   }
+
+
+
   public static void afficherEnfants(Personne pers){
     int nbEnfants = pers.enfants.size();
-    System.out.println(pers.prenom());
     for(int i = 0; i < nbEnfants; i++){
-          System.out.print(pers.enfants().get(i).prenom() + "\t");
+          System.out.print(pers.enfants().get(i).prenom() + (i == nbEnfants-1 ? "" : "___"));
     }
     for(int i = 0; i < nbEnfants; i++) {
         if(!(pers.enfants().get(i).estFeuille())) {
+          System.out.print("\n  |\n  |\n");
           afficherEnfants(pers.enfants().get(i));
         }
     }
-    System.out.print("\n");
     }
+
   }

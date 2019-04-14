@@ -1,8 +1,7 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-abstract class Personne {
+public abstract class Personne {
 
   private String prenom;
   private String nom;
@@ -16,8 +15,7 @@ abstract class Personne {
      nbPers++;
    }
 
-  public Personne(String prenom, String nom, Famille f) {
-    f.addPersonne(this);
+  public Personne(String prenom, String nom) {
     this.prenom = prenom;
     this.nom = nom;
   }
@@ -44,5 +42,12 @@ abstract class Personne {
   public List<Personne> enfants() {
     return enfants;
   }
+  public void retirerPere() {
+    this.pere = null;
+  }
+  public void retirerMere() {
+    this.mere = null;
+  }
+  
 
 }
