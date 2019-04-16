@@ -123,10 +123,8 @@ public class Gui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(comboBox.getSelectedItem() == "HOMME") {		
 					creeHomme();	
-					prenomMembre.add(txtPrenom.getText());
 				} else if (comboBox.getSelectedItem() == "FEMME"){
 					creeFemme();
-					prenomMembre.add(txtPrenom.getText());
 				}
 			}
 			});
