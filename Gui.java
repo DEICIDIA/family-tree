@@ -15,6 +15,8 @@ import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.Font;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Gui extends JFrame {
 
@@ -34,6 +36,7 @@ public class Gui extends JFrame {
 	private String dateN;
 	private JButton btnAjouterPre;
 	private JButton btnAjouterMre;
+	private List<String> prenomMembreFamille = new ArrayList<String>();
 	
 	/**
 	 * Launch the application.
@@ -118,7 +121,7 @@ public class Gui extends JFrame {
 		txtPrenom.setBounds(12, 79, 237, 19);
 		panel.add(txtPrenom);
 		
-		//ajoute une personne à la famille et verifie la date de naissance 
+		//ajoute une personne à la famille et verifie la validité de la date de naissance 
 		
 		JButton btnAjouter = new JButton("AJOUTER");
 		btnAjouter.setBackground(Color.GRAY);
@@ -266,12 +269,14 @@ public class Gui extends JFrame {
 		panel.add(btnAjouterMre);
 		
 		JComboBox comboBox_1 = new JComboBox();
+		comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));
 		comboBox_1.setBackground(Color.GRAY);
 		comboBox_1.setBounds(382, 12, 353, 24);
 		panel.add(comboBox_1);
 	}
 
 	//fonctions
+	
 	public void initTxtBox() {
 		txtNom.setText(" NOM :");
 		txtPrenom.setText(" PRENOM :");
@@ -304,6 +309,8 @@ public class Gui extends JFrame {
 		if(isValidDate(dateN)) {
 			membreFamille[i] = new Homme(txtPrenom.getText(),txtNom.getText());
 			membreFamille[i].SetDateNaissance(dateN);
+			prenomMembreFamille.add(txtPrenom.getText());
+			repaint();
 			i++;
 		}
 	}
@@ -313,6 +320,8 @@ public class Gui extends JFrame {
 		if(isValidDate(dateN)) {
 			membreFamille[i] = new Femme(txtPrenom.getText(),txtNom.getText());
 			membreFamille[i].SetDateNaissance(dateN);
+			prenomMembreFamille.add(txtPrenom.getText());
+			repaint();
 			i++;
 		}
 	}
