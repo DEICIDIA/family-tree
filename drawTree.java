@@ -3,6 +3,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.util.ArrayList;
 
 
 public class drawTree extends JFrame {
@@ -13,7 +14,7 @@ public class drawTree extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	
-	public drawTree(Personne[] membreFamille) {
+	public drawTree(ArrayList<Personne> membreFamille) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -32,8 +33,16 @@ public class drawTree extends JFrame {
 		panel.add(textPane);
 		setVisible(true);
 		
-		for(int i = 0; i < membreFamille.length; i++) {
-			System.out.println(membreFamille[i].prenom() + " à pour père : " + membreFamille[i].prenomPere() + " et pour mère : " + membreFamille[i].prenomMere() + "\n");
+		for(int i = 0; i < membreFamille.size() ; i++) {
+			System.out.print(membreFamille.get(i).prenom());
+
+			if(membreFamille.get(i).aPere()) {
+				System.out.println("a pour père : " + membreFamille.get(i).prenomPere());
+			}
+			if(membreFamille.get(i).aMere()) {
+				System.out.println("a pour mère : " + membreFamille.get(i).prenomMere());
+			}
+			System.out.print("\n");
 		}
 	}
 

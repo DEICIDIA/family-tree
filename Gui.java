@@ -27,17 +27,19 @@ public class Gui extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtNom;
 	private JTextField txtPrenom;
-	public Personne[] membreFamille = new Personne[100];
+	public ArrayList<Personne> membreFamille = new ArrayList<Personne>();
 	private int i = 0;
 	private JTextField txtYy;
 	private drawTree secondFrame;
 	private JTextField txtDd;
 	private JTextField txtMm;
 	private String dateN;
-	private JButton btnAjouterPre;
-	private JButton btnAjouterMre;
 	private List<String> prenomMembreFamille = new ArrayList<String>();
 	private JButton btnAjouterFils;
+	private JButton btnAjouterPre;
+	private JButton btnAjouter;
+	private JButton btnSupprimerPersonne;
+
 	
 	/**
 	 * Launch the application.
@@ -64,7 +66,7 @@ public class Gui extends JFrame {
 		setBackground(Color.DARK_GRAY);
 		setTitle("ARBRE GÉNÉALOGIQUE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 757, 517);
+		setBounds(100, 100, 635, 215);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -124,12 +126,12 @@ public class Gui extends JFrame {
 		
 		JComboBox comboBox_1 = new JComboBox();
 		comboBox_1.setBackground(Color.GRAY);
-		comboBox_1.setBounds(382, 12, 353, 24);
+		comboBox_1.setBounds(293, 12, 327, 24);
 		panel.add(comboBox_1);
 		
 		//ajoute une personne à la famille et verifie la validité de la date de naissance 
 		
-		JButton btnAjouter = new JButton("AJOUTER");
+		btnAjouter = new JButton("AJOUTER");
 		btnAjouter.setBackground(Color.GRAY);
 		btnAjouter.addMouseListener(new MouseAdapter() {
 				Color oldcolor = btnAjouter.getBackground();
@@ -145,13 +147,15 @@ public class Gui extends JFrame {
 				if(comboBox.getSelectedItem() == "HOMME") {		
 					creeHomme();	
 					initTxtBox();
-					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));
-					
+					affichageBouton();
 				} else if (comboBox.getSelectedItem() == "FEMME"){
 					creeFemme();
 					initTxtBox();
-					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));
+					affichageBouton();
+					
 				}
+				comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));
+
 			}
 			});
 		
@@ -200,7 +204,7 @@ public class Gui extends JFrame {
 		button.setForeground(Color.BLACK);
 		button.setBorderPainted(false);
 		button.setBackground(Color.GRAY);
-		button.setBounds(618, 442, 117, 25);
+		button.setBounds(503, 146, 117, 25);
 		panel.add(button);
 		
 		txtDd = new JTextField();
@@ -243,7 +247,7 @@ public class Gui extends JFrame {
 		txtMm.setBounds(79, 110, 55, 24);
 		panel.add(txtMm);
 		
-		btnAjouterPre = new JButton("AJOUTER PÈRE");
+		btnAjouterPre = new JButton("AJOUTER PARENTS");
 		btnAjouterPre.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent arg0) {
@@ -255,43 +259,24 @@ public class Gui extends JFrame {
 			}
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				creeHomme();
-				initTxtBox(); 
-				
-				membreFamille[comboBox_1.getSelectedIndex()].setPere((Homme) membreFamille[i-1]); //lie le pere et la personne choisi
-				comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
+				if(comboBox.getSelectedItem() == "HOMME") {
+					creeHomme();
+					membreFamille.get(comboBox_1.getSelectedIndex()).setPere((Homme) membreFamille.get(i-1)); //lie le pere et la personne choisi
+					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
+					initTxtBox(); 
+				} else {
+					creeFemme();
+					membreFamille.get(comboBox_1.getSelectedIndex()).setMere((Femme) membreFamille.get(i-1)); //lie le pere et la personne choisi
+					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
+					initTxtBox(); 
+				}
 			}
 		});
 		btnAjouterPre.setForeground(Color.BLACK);
 		btnAjouterPre.setBorderPainted(false);
 		btnAjouterPre.setBackground(Color.GRAY);
-		btnAjouterPre.setBounds(12, 183, 219, 25);
+		btnAjouterPre.setBounds(401, 44, 219, 25);
 		panel.add(btnAjouterPre);
-		
-		btnAjouterMre = new JButton("AJOUTER MÈRE");
-		btnAjouterMre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				btnAjouterMre.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnAjouterMre.setBackground(Color.GRAY);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				creeFemme();
-				initTxtBox(); 
-
-				membreFamille[comboBox_1.getSelectedIndex()].setMere((Femme) membreFamille[i-1]); //lie le pere et la personne choisi
-				comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
-			}
-		});
-		btnAjouterMre.setForeground(Color.BLACK);
-		btnAjouterMre.setBorderPainted(false);
-		btnAjouterMre.setBackground(Color.GRAY);
-		btnAjouterMre.setBounds(12, 220, 219, 25);
-		panel.add(btnAjouterMre);
 		
 		btnAjouterFils = new JButton("AJOUTER ENFANTS");
 		btnAjouterFils.addMouseListener(new MouseAdapter() {
@@ -299,12 +284,12 @@ public class Gui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(comboBox.getSelectedItem() == "HOMME") {
 					creeHomme();
-					((Homme)membreFamille[comboBox_1.getSelectedIndex()]).ajouterEnfant(membreFamille[i-1]); //lie le pere et la personne choisi
+					((Homme)membreFamille.get(comboBox_1.getSelectedIndex())).ajouterEnfant(membreFamille.get(i-1)); //lie le pere et la personne choisi
 					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
 					initTxtBox(); 
 				} else {
 					creeFemme();
-					((Femme)membreFamille[comboBox_1.getSelectedIndex()]).ajouterEnfant(membreFamille[i-1]); //lie le pere et la personne choisi
+					((Femme)membreFamille.get(comboBox_1.getSelectedIndex())).ajouterEnfant(membreFamille.get(i-1)); //lie le pere et la personne choisi
 					comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));	//ajoute le pere à la liste 
 					initTxtBox(); 
 				}
@@ -322,13 +307,51 @@ public class Gui extends JFrame {
 		btnAjouterFils.setForeground(Color.BLACK);
 		btnAjouterFils.setBorderPainted(false);
 		btnAjouterFils.setBackground(Color.GRAY);
-		btnAjouterFils.setBounds(12, 257, 219, 25);
+		btnAjouterFils.setBounds(401, 75, 219, 25);
 		panel.add(btnAjouterFils);
 		
+		btnSupprimerPersonne = new JButton("SUPPRIMER ");
+		btnSupprimerPersonne.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				btnSupprimerPersonne.setBackground(Color.WHITE);
+			}
+			@Override
+			public void mouseExited(MouseEvent arg0) {
+				btnSupprimerPersonne.setBackground(Color.GRAY);
+			}
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(membreFamille.get(comboBox_1.getSelectedIndex()).estRacine()){
+					
+				}
+				membreFamille.remove(membreFamille.get(comboBox_1.getSelectedIndex()));
+				
+				comboBox_1.removeItem(comboBox_1.getSelectedItem());
+				
+			}
+		});
+		btnSupprimerPersonne.setForeground(Color.BLACK);
+		btnSupprimerPersonne.setBorderPainted(false);
+		btnSupprimerPersonne.setBackground(Color.GRAY);
+		btnSupprimerPersonne.setBounds(401, 109, 219, 25);
+		panel.add(btnSupprimerPersonne);
 		
+		
+		if(membreFamille.size() == 0) {
+			btnAjouterFils.setVisible(false);
+			btnAjouterPre.setVisible(false);
+			btnSupprimerPersonne.setVisible(false);
+		} 
 	}
 
 	//fonctions
+	public void affichageBouton() {
+		btnAjouterFils.setVisible(true);
+		btnSupprimerPersonne.setVisible(true);
+		btnAjouterPre.setVisible(true);
+		btnAjouter.setVisible(false);
+	}
 	
 	public void initTxtBox() {
 		txtNom.setText(" NOM :");
@@ -360,8 +383,8 @@ public class Gui extends JFrame {
 	public void creeHomme() {
 		dateN = (txtYy.getText() + "-" + txtMm.getText() + "-" + txtDd.getText()); 		
 		if(isValidDate(dateN)) {
-			membreFamille[i] = new Homme(txtPrenom.getText(),txtNom.getText());
-			membreFamille[i].SetDateNaissance(dateN);
+			membreFamille.add(new Homme(txtPrenom.getText(),txtNom.getText()));
+			membreFamille.get(i).SetDateNaissance(dateN);
 			prenomMembreFamille.add(txtPrenom.getText());
 			repaint();
 			i++;
@@ -371,11 +394,12 @@ public class Gui extends JFrame {
 	public void creeFemme() {
 		dateN = (txtYy.getText() + "-" + txtMm.getText() + "-" + txtDd.getText()); 		
 		if(isValidDate(dateN)) {
-			membreFamille[i] = new Femme(txtPrenom.getText(),txtNom.getText());
-			membreFamille[i].SetDateNaissance(dateN);
+			membreFamille.add(new Femme(txtPrenom.getText(),txtNom.getText()));
+			membreFamille.get(i).SetDateNaissance(dateN);
 			prenomMembreFamille.add(txtPrenom.getText());
 			repaint();
 			i++;
 		}
 	}
 }
+

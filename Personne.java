@@ -10,12 +10,6 @@ public abstract class Personne {
   private String dateN;
   public List<Personne> enfants = new ArrayList<>();
 
-  public static int nbPers = 0;
-
-   {
-     nbPers++;
-   }
-
   public Personne(String prenom, String nom) {
     this.prenom = prenom;
     this.nom = nom;
@@ -60,5 +54,19 @@ public abstract class Personne {
   }
   public String prenomMere() {
 	  return this.mere.prenom();
+  }
+  public boolean aPere() {
+	  return !(this.pere == null);
+  }
+  public boolean aMere() {
+	  return !(this.mere == null);
+  }
+  public void remiseZero() {
+	  this.pere = null;
+	  this.mere = null;
+	  this.enfants = null;
+  }
+  public Personne pere() {
+	  return this.pere;
   }
 }
