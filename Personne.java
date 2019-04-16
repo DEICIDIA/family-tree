@@ -5,8 +5,8 @@ public abstract class Personne {
 
   private String prenom;
   private String nom;
-  private Personne pere;
-  private Personne mere;
+  private Personne pere = null;
+  private Personne mere = null;
   private String dateN;
   public List<Personne> enfants = new ArrayList<>();
 
@@ -55,6 +55,10 @@ public abstract class Personne {
   public String dateNaissance() {
 	  return dateN;
   }
-  
-
+  public String prenomPere() {
+	  return this.pere.prenom();
+  }
+  public String prenomMere() {
+	  return this.mere.prenom();
+  }
 }

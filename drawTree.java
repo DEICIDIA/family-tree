@@ -31,8 +31,9 @@ public class drawTree extends JFrame {
 		textPane.setBounds(196, 37, 7, 21);
 		panel.add(textPane);
 		setVisible(true);
+		
 		for(int i = 0; i < membreFamille.length; i++) {
-			System.out.println(membreFamille[i].prenom() + "\n" + membreFamille[i].dateNaissance() + "\n");
+			System.out.println(membreFamille[i].prenom() + " à pour père : " + membreFamille[i].prenomPere() + " et pour mère : " + membreFamille[i].prenomMere() + "\n");
 		}
 	}
 
