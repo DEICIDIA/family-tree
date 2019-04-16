@@ -324,6 +324,8 @@ public class Gui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(membreFamille.get(comboBox_1.getSelectedIndex()).estRacine()){
 					
+				} else if (membreFamille.get(comboBox_1.getSelectedIndex()).estFeuille()) {
+					
 				}
 				membreFamille.remove(membreFamille.get(comboBox_1.getSelectedIndex()));
 				
