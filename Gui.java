@@ -8,12 +8,13 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 import java.awt.Font;
 
 public class Gui extends JFrame {
@@ -81,12 +82,18 @@ public class Gui extends JFrame {
 		txtNom = new JTextField();
 		txtNom.setBorder(null);
 		txtNom.setFont(new Font("Arial", Font.BOLD, 12));
-		txtNom.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtNom.setText("");
-			}
-		});
+		txtNom.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+                txtNom.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {                
+            }
+			});
 		txtNom.setText(" NOM :");
 		txtNom.setBounds(12, 48, 237, 19);
 		panel.add(txtNom);
@@ -95,12 +102,18 @@ public class Gui extends JFrame {
 		txtPrenom = new JTextField();
 		txtPrenom.setBorder(null);
 		txtPrenom.setFont(new Font("Arial", Font.BOLD, 12));
-		txtPrenom.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtPrenom.setText("");
-			}
-		});
+		txtPrenom.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+                txtPrenom.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {                
+            }
+			});
 		txtPrenom.setText(" PRENOM :");
 		txtPrenom.setColumns(10);
 		txtPrenom.setBounds(12, 79, 237, 19);
@@ -136,12 +149,18 @@ public class Gui extends JFrame {
 		
 		
 		txtYy = new JTextField();
-		txtYy.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtYy.setText("");
-			}
-		});
+		txtYy.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+                txtYy.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {                
+            }
+			});
 		txtYy.setFont(new Font("Arial", Font.BOLD, 12));
 		txtYy.setText("YY");
 		txtYy.setToolTipText("");
@@ -172,12 +191,18 @@ public class Gui extends JFrame {
 		panel.add(button);
 		
 		txtDd = new JTextField();
-		txtDd.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtDd.setText("");
-			}
-		});
+		txtDd.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+                txtDd.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {                
+            }
+			});
 		txtDd.setToolTipText("");
 		txtDd.setText("DD");
 		txtDd.setFont(new Font("Arial", Font.BOLD, 12));
@@ -186,12 +211,18 @@ public class Gui extends JFrame {
 		panel.add(txtDd);
 		
 		txtMm = new JTextField();
-		txtMm.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				txtMm.setText("");
-			}
-		});
+		txtMm.addFocusListener(new FocusListener() {
+
+            @Override
+            public void focusGained(FocusEvent arg0) {
+                // TODO Auto-generated method stub
+                txtMm.setText("");
+            }
+
+            @Override
+            public void focusLost(FocusEvent arg0) {                
+            }
+			});
 		txtMm.setToolTipText("");
 		txtMm.setText("MM");
 		txtMm.setFont(new Font("Arial", Font.BOLD, 12));
