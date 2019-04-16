@@ -7,6 +7,7 @@ public abstract class Personne {
   private String nom;
   private Personne pere;
   private Personne mere;
+  private String dateN;
   public List<Personne> enfants = new ArrayList<>();
 
   public static int nbPers = 0;
@@ -47,6 +48,12 @@ public abstract class Personne {
   }
   public void retirerMere() {
     this.mere = null;
+  }
+  public void SetDateNaissance(String d) {
+	  this.dateN = d;
+  }
+  public String dateNaissance() {
+	  return dateN;
   }
   
 
