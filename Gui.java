@@ -8,7 +8,6 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTextField;
 import javax.swing.JButton;
-
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
@@ -136,8 +135,10 @@ public class Gui extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				if(comboBox.getSelectedItem() == "HOMME") {		
 					creeHomme();	
+					initTxtBox();
 				} else if (comboBox.getSelectedItem() == "FEMME"){
 					creeFemme();
+					initTxtBox();
 				}
 			}
 			});
@@ -271,6 +272,13 @@ public class Gui extends JFrame {
 	}
 
 	//fonctions
+	public void initTxtBox() {
+		txtNom.setText(" NOM :");
+		txtPrenom.setText(" PRENOM :");
+		txtDd.setText("DD");
+		txtMm.setText("MM");
+		txtYy.setText("YY");
+	}
 	
 	public drawTree getSecondFrame() {
 		return secondFrame;
