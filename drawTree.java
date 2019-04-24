@@ -1,50 +1,48 @@
+import java.util.ArrayList;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.awt.Shape;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JTextPane;
-import javax.swing.border.EmptyBorder;
-import java.awt.Color;
-import java.util.ArrayList;
 
-
-public class drawTree extends JFrame {
+public class drawTree extends JPanel {
+	public ArrayList<Rectangle> l = new ArrayList();
 
 	/**
 	 * 
+	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	
-	public drawTree(ArrayList<Personne> membreFamille) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(5, 5, 440, 262);
-		panel.setBackground(Color.WHITE);
-		contentPane.add(panel);
-		panel.setLayout(null);
-		
-		JTextPane textPane = new JTextPane();
-		textPane.setBounds(196, 37, 7, 21);
-		panel.add(textPane);
-		setVisible(true);
-		
-		for(int i = 0; i < membreFamille.size() ; i++) {
-			System.out.print(membreFamille.get(i).prenom());
 
-			if(membreFamille.get(i).aPere()) {
-				System.out.println("a pour père : " + membreFamille.get(i).prenomPere());
-			}
-			if(membreFamille.get(i).aMere()) {
-				System.out.println("a pour mère : " + membreFamille.get(i).prenomMere());
-			}
-			System.out.print("\n");
+	public drawTree(ArrayList<Personne> s) {
+		JFrame frame = new JFrame("Testing");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.pack();
+		setSize(400,400);
+		frame.setVisible(true);
+
+		Rectangle t = new Rectangle();
+		for (int i = 0; i < s.size(); i++) {
+			l.add(new Rectangle(i, i, 50, 50));
 		}
+		
+		for(int i = 0; i < l.size(); i++) {
+			frame.add(getParent(), l.get(i));
+		}
+		setVisible(true);
+
 	}
 
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2d = (Graphics2D) g.create();
+		for (Rectangle rect : l) {
+			g2d.draw(rect);
+		}
+		g2d.dispose();
+	}
 
 }
