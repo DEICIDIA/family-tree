@@ -1,48 +1,18 @@
 import java.util.ArrayList;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-import java.awt.Shape;
-
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class drawTree extends JPanel {
-	public ArrayList<Rectangle> l = new ArrayList();
 
+public class drawTree extends JPanel {
 	/**
 	 * 
-	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -9136486046369835553L;
 
-	public drawTree(ArrayList<Personne> s) {
-		JFrame frame = new JFrame("Testing");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.pack();
-		setSize(400,400);
-		frame.setVisible(true);
-
-		Rectangle t = new Rectangle();
-		for (int i = 0; i < s.size(); i++) {
-			l.add(new Rectangle(i, i, 50, 50));
-		}
-		
-		for(int i = 0; i < l.size(); i++) {
-			frame.add(getParent(), l.get(i));
-		}
-		setVisible(true);
-
+	public drawTree(ArrayList<Personne> listePersonne) {
+		//mxGraph graph = new mxGraph();
+		//Object parent = graph.getDefaultParent();
+		//Object v1 = graph.insertVertex(parent, null, "Hello", 20, 20, 80, 30);
+		//Object v2 = graph.insertVertex(parent, null, "World!", 240, 150, 80, 30); 
+		//graph.insertEdge(parent, null, "Edge", v1, v2);
 	}
-
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2d = (Graphics2D) g.create();
-		for (Rectangle rect : l) {
-			g2d.draw(rect);
-		}
-		g2d.dispose();
-	}
-
 }

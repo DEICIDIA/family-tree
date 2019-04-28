@@ -9,7 +9,6 @@ public class Femme extends Personne {
 		p.setMere(this);
 	}
 	public void wageGap(int salaire) {
-		this.salaire*=0.75;
-		
+		this.salaire*=0.75;	
 	}
 }

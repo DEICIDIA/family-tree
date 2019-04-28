@@ -30,7 +30,10 @@ public class Frame extends JFrame {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 535901415425739541L;
+	/**
+	 * 
+	 */
 	private JPanel contentPane;
 	private JTextField txtNom;
 	private JTextField txtPrenom;
@@ -443,11 +446,11 @@ public class Frame extends JFrame {
 	 */
 
 	public void initTxtBox() {
-		txtNom.setText(" NOM :");
-		txtPrenom.setText(" PRENOM :");
-		txtDd.setText("DD");
-		txtMm.setText("MM");
-		txtYy.setText("YY");
+		txtNom.setText("");
+		txtPrenom.setText("");
+		txtDd.setText("");
+		txtMm.setText("");
+		txtYy.setText("");
 	}
 
 	public drawTree getSecondFrame() {
