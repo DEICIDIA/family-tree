@@ -1,4 +1,3 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -8,22 +7,24 @@ import javax.swing.border.LineBorder;
 import java.awt.Color;
 import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextPane;
+import java.awt.GridBagLayout;
+import java.awt.FlowLayout;
+import java.awt.BorderLayout;
+import javax.swing.BoxLayout;
+import java.awt.GridLayout;
+
 
 public class Frame extends JFrame {
 
@@ -43,22 +44,19 @@ public class Frame extends JFrame {
 	private JTextField txtMm;
 	private String dateN;
 	private JButton btnAjouterFils;
-	private JButton btnAjouterPre;
 	private JButton btnAjouter;
 	private JButton btnSupprimerPersonne;
-	@SuppressWarnings("unused")
 	private drawTree frame;
-
-	private int i = 0;
 
 	private List<String> prenomMembreFamille = new ArrayList<String>();
 	public ArrayList<Personne> membreFamille = new ArrayList<Personne>();
+	private int i = 0;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-	
+
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -73,56 +71,48 @@ public class Frame extends JFrame {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Frame() {
-		
 		setUndecorated(true);
-		setBackground(Color.DARK_GRAY);
 		setResizable(false);
+		setBackground(Color.DARK_GRAY);
 		setTitle("ARBRE GÉNÉALOGIQUE");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 789, 316);
+		setBounds(100, 100, 840, 625);
 
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
+		contentPane.setLayout(null);
 
 		JPanel panel = new JPanel();
+		panel.setBounds(5, 5, 830, 124);
 		panel.setBackground(Color.WHITE);
-		contentPane.add(panel, BorderLayout.CENTER);
+		contentPane.add(panel);
 		panel.setLayout(null);
-		
-		
-		  
-		JComboBox comboBox = new JComboBox();
-		comboBox.setBackground(Color.WHITE);
-		comboBox.setModel(new DefaultComboBoxModel(new String[] { "HOMME", "FEMME" }));
-		comboBox.setBounds(12, 12, 114, 24);
-		panel.add(comboBox);
 
 		txtNom = new JTextField();
 		txtNom.setFont(new Font("Arial", Font.BOLD, 12));
-		txtNom.setBounds(12, 160, 325, 34);
+		txtNom.setBounds(303, 30, 153, 24);
 		panel.add(txtNom);
 		txtNom.setColumns(10);
 
 		txtPrenom = new JTextField();
 		txtPrenom.setFont(new Font("Arial", Font.BOLD, 12));
 		txtPrenom.setColumns(10);
-		txtPrenom.setBounds(12, 81, 325, 34);
+		txtPrenom.setBounds(138, 30, 153, 24);
 		panel.add(txtPrenom);
 
 		btnAjouter = new JButton("AJOUTER");
 		btnAjouter.setBackground(new Color(83, 241, 51));
 		btnAjouter.setForeground(Color.WHITE);
-		btnAjouter.setBounds(231, 258, 106, 36);
+		btnAjouter.setBounds(687, 18, 123, 36);
 		btnAjouter.setBorderPainted(false);
 		panel.add(btnAjouter);
 
 		txtYy = new JTextField();
 		txtYy.setFont(new Font("Arial", Font.BOLD, 12));
 		txtYy.setToolTipText("");
-		txtYy.setBounds(146, 235, 57, 34);
+		txtYy.setBounds(602, 30, 57, 24);
 		panel.add(txtYy);
 		txtYy.setColumns(10);
 
@@ -130,77 +120,146 @@ public class Frame extends JFrame {
 		txtDd.setToolTipText("");
 		txtDd.setFont(new Font("Arial", Font.BOLD, 12));
 		txtDd.setColumns(10);
-		txtDd.setBounds(12, 235, 55, 34);
+		txtDd.setBounds(468, 30, 55, 24);
 		panel.add(txtDd);
 
 		txtMm = new JTextField();
 		txtMm.setToolTipText("");
 		txtMm.setFont(new Font("Arial", Font.BOLD, 12));
 		txtMm.setColumns(10);
-		txtMm.setBounds(79, 234, 55, 35);
+		txtMm.setBounds(535, 30, 55, 24);
 		panel.add(txtMm);
 
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(null);
-		panel_1.setBackground(Color.DARK_GRAY);
-		panel_1.setBounds(349, 0, 432, 494);
-		panel.add(panel_1);
-		panel_1.setLayout(null);
+		JTextPane txtpnPrenom = new JTextPane();
+		txtpnPrenom.setFont(new Font("Dialog", Font.BOLD, 15));
+		txtpnPrenom.setEditable(false);
+		txtpnPrenom.setText("PRENOM");
+		txtpnPrenom.setBounds(138, 3, 78, 21);
+		panel.add(txtpnPrenom);
 
-		btnAjouterFils = new JButton("...\nÀ POUR PARENTS\n ...");
-		btnAjouterFils.setBounds(12, 96, 180, 100);
-		panel_1.add(btnAjouterFils);
+		JTextPane txtpnNom = new JTextPane();
+		txtpnNom.setEditable(false);
+		txtpnNom.setFont(new Font("Dialog", Font.BOLD, 15));
+		txtpnNom.setText("NOM");
+		txtpnNom.setBounds(303, 3, 75, 21);
+		panel.add(txtpnNom);
 
-		btnAjouterFils.setForeground(Color.BLACK);
-		btnAjouterFils.setBorderPainted(false);
-		btnAjouterFils.setBackground(Color.GRAY);
+		JTextPane txtpnJour = new JTextPane();
+		txtpnJour.setEditable(false);
+		txtpnJour.setText("JOUR");
+		txtpnJour.setFont(new Font("Dialog", Font.BOLD, 15));
+		txtpnJour.setBounds(468, 3, 55, 21);
+		panel.add(txtpnJour);
 
-		btnAjouterPre = new JButton("... À POUR ENFANT ...");
-		btnAjouterPre.setBounds(240, 96, 180, 100);
-		btnAjouterPre.setForeground(Color.BLACK);
-		btnAjouterPre.setBorderPainted(false);
-		btnAjouterPre.setBackground(Color.GRAY);
-		panel_1.add(btnAjouterPre);
+		JTextPane txtpnMois = new JTextPane();
+		txtpnMois.setEditable(false);
+		txtpnMois.setText("MOIS");
+		txtpnMois.setFont(new Font("Dialog", Font.BOLD, 15));
+		txtpnMois.setBounds(535, 3, 57, 21);
+		panel.add(txtpnMois);
 
-		JComboBox comboBox_2 = new JComboBox();
-		comboBox_2.setBounds(12, 208, 408, 24);
-		comboBox_2.setBackground(Color.GRAY);
-		panel_1.add(comboBox_2);
+		JTextPane txtpnAnne = new JTextPane();
+		txtpnAnne.setEditable(false);
+		txtpnAnne.setText("ANNÉE");
+		txtpnAnne.setFont(new Font("Dialog", Font.BOLD, 15));
+		txtpnAnne.setBounds(602, 3, 57, 21);
+		panel.add(txtpnAnne);
+
+		JComboBox comboBox = new JComboBox();
+		comboBox.setBounds(12, 29, 114, 24);
+		panel.add(comboBox);
+		comboBox.setBackground(Color.WHITE);
+		comboBox.setModel(new DefaultComboBoxModel(new String[] { "HOMME", "FEMME" }));
 
 		JComboBox comboBox_1 = new JComboBox();
-		comboBox_1.setBounds(12, 60, 408, 24);
-		comboBox_1.setBackground(Color.GRAY);
-		panel_1.add(comboBox_1);
-
-		JButton button = new JButton("AFFICHER");
-		button.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				button.setBackground(Color.WHITE);
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				button.setBackground(Color.GRAY);
-			}
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				drawTree t = new drawTree(membreFamille);
-			}
-		});
-		button.setBounds(12, 258, 106, 36);
-		panel_1.add(button);
-		button.setForeground(Color.BLACK);
-		button.setBorderPainted(false);
-		button.setBackground(Color.GRAY);
+		comboBox_1.setBounds(12, 88, 180, 24);
+		panel.add(comboBox_1);
+		comboBox_1.setBackground(Color.WHITE);
 
 		btnSupprimerPersonne = new JButton("SUPPRIMER ");
-		btnSupprimerPersonne.setBounds(295, 12, 125, 36);
-		panel_1.add(btnSupprimerPersonne);
+		btnSupprimerPersonne.setBounds(687, 72, 123, 36);
+		panel.add(btnSupprimerPersonne);
 		btnSupprimerPersonne.setBorderPainted(false);
 		btnSupprimerPersonne.setFont(new Font("Dialog", Font.BOLD, 12));
 		btnSupprimerPersonne.setForeground(Color.WHITE);
 		btnSupprimerPersonne.setBackground(new Color(241, 57, 83));
 
+		btnAjouterFils = new JButton("... LIER AVEC ...\n");
+		btnAjouterFils.setBounds(204, 88, 186, 24);
+		panel.add(btnAjouterFils);
+
+		btnAjouterFils.setForeground(Color.BLACK);
+		btnAjouterFils.setBorderPainted(false);
+		btnAjouterFils.setBackground(Color.WHITE);
+
+		JComboBox comboBox_2 = new JComboBox();
+		comboBox_2.setBounds(402, 88, 180, 24);
+		panel.add(comboBox_2);
+		comboBox_2.setBackground(Color.WHITE);
+
+		JPanel panel_2 = new JPanel();
+		panel_2.setOpaque(false);
+		panel_2.setBounds(5, 129, 830, 506);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
+
+		drawTree vizu = new drawTree(membreFamille);
+		vizu.setBounds(0, 0, 830, 506);
+		panel_2.add(vizu);
+		vizu.setLayout(new GridLayout(1, 0, 0, 0));
+
+		
+		
+		
+		btnAjouterFils.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if (comboBox_1.getSelectedItem() != comboBox_2.getSelectedItem()) {
+					if(estPlusVieux(membreFamille.get(comboBox_1.getSelectedIndex()),membreFamille.get(comboBox_2.getSelectedIndex()))){
+						/*
+						 * si la personne1 est plus vieux alors personne1 est pere / mere de personne2 
+						 * on affiche les liens entre l'enfants et son père / mère
+						 */
+						System.out.println("pers 1 plus vieux que pers 2");
+						membreFamille.get(comboBox_1.getSelectedIndex()).ajouterEnfant(membreFamille.get(comboBox_2.getSelectedIndex()));
+						vizu.updateLiens(comboBox_2.getSelectedIndex());
+
+					} else {
+						/*
+						 * sinon la personne1 est l'enfant de la personne2
+						 */
+						membreFamille.get(comboBox_2.getSelectedIndex()).ajouterEnfant(membreFamille.get(comboBox_1.getSelectedIndex()));
+						vizu.updateLiens(comboBox_1.getSelectedIndex());
+
+
+					}
+		
+				} else {
+					/*
+					 * affichage message d'erreur si un même personne est selectionné dans les comboBox
+					 */
+					JOptionPane.showMessageDialog(null, "meme personne selectionné");
+				}
+
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent arg0) {
+				btnAjouterFils.setBackground(Color.LIGHT_GRAY);
+
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
+				btnAjouterFils.setBackground(Color.WHITE);
+
+			}
+
+		});
+
+		
+		
+		
 		btnSupprimerPersonne.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -234,100 +293,6 @@ public class Frame extends JFrame {
 			}
 		});
 
-		JTextPane txtpnPrenom = new JTextPane();
-		txtpnPrenom.setFont(new Font("Dialog", Font.BOLD, 15));
-		txtpnPrenom.setEditable(false);
-		txtpnPrenom.setText("PRENOM");
-		txtpnPrenom.setBounds(12, 48, 114, 21);
-		panel.add(txtpnPrenom);
-
-		JTextPane txtpnNom = new JTextPane();
-		txtpnNom.setEditable(false);
-		txtpnNom.setFont(new Font("Dialog", Font.BOLD, 15));
-		txtpnNom.setText("NOM");
-		txtpnNom.setBounds(12, 127, 75, 21);
-		panel.add(txtpnNom);
-
-		JTextPane txtpnJour = new JTextPane();
-		txtpnJour.setEditable(false);
-		txtpnJour.setText("JOUR");
-		txtpnJour.setFont(new Font("Dialog", Font.BOLD, 15));
-		txtpnJour.setBounds(12, 206, 55, 21);
-		panel.add(txtpnJour);
-
-		JTextPane txtpnMois = new JTextPane();
-		txtpnMois.setEditable(false);
-		txtpnMois.setText("MOIS");
-		txtpnMois.setFont(new Font("Dialog", Font.BOLD, 15));
-		txtpnMois.setBounds(79, 206, 57, 21);
-		panel.add(txtpnMois);
-
-		JTextPane txtpnAnne = new JTextPane();
-		txtpnAnne.setEditable(false);
-		txtpnAnne.setText("ANNÉE");
-		txtpnAnne.setFont(new Font("Dialog", Font.BOLD, 15));
-		txtpnAnne.setBounds(146, 206, 57, 21);
-		panel.add(txtpnAnne);
-
-		btnAjouterPre.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				btnAjouterPre.setBackground(Color.WHITE);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnAjouterPre.setBackground(Color.GRAY);
-			}
-
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				if (comboBox_1.getSelectedItem() != comboBox_2.getSelectedItem()) {
-					if (membreFamille.get(comboBox_2.getSelectedIndex()) instanceof Homme) {
-						((Homme) membreFamille.get(comboBox_1.getSelectedIndex()))
-								.ajouterEnfant(membreFamille.get(comboBox_2.getSelectedIndex()));
-
-					} else if (membreFamille.get(comboBox_1.getSelectedIndex()) instanceof Femme) {
-						((Femme) membreFamille.get(comboBox_1.getSelectedIndex()))
-								.ajouterEnfant(membreFamille.get(comboBox_2.getSelectedIndex()));
-					}
-
-				} else {
-					JOptionPane.showMessageDialog(null, "meme personne selectionné");
-				}
-			}
-		});
-		//btn a pour parent
-		btnAjouterFils.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if (comboBox_1.getSelectedItem() != comboBox_2.getSelectedItem()) {
-
-					if (membreFamille.get(comboBox_2.getSelectedIndex()) instanceof Homme) {
-						((Homme) membreFamille.get(comboBox_2.getSelectedIndex()))
-						.ajouterEnfant(membreFamille.get(comboBox_1.getSelectedIndex()));
-					} else if (membreFamille.get(comboBox_2.getSelectedIndex()) instanceof Femme) {
-						((Femme) membreFamille.get(comboBox_2.getSelectedIndex()))
-								.ajouterEnfant(membreFamille.get(comboBox_1.getSelectedIndex()));
-					}
-				} else {
-					JOptionPane.showMessageDialog(null, "meme personne selectionné");
-				}
-
-			}
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				btnAjouterFils.setBackground(Color.WHITE);
-			}
-
-			@Override
-			public void mouseExited(MouseEvent e) {
-				btnAjouterFils.setBackground(Color.GRAY);
-			}
-
-		});
-
 		btnAjouter.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent ae) {
 				btnAjouter.setBackground(Color.GREEN);
@@ -342,10 +307,12 @@ public class Frame extends JFrame {
 				if (comboBox.getSelectedItem() == "HOMME") {
 					creeHomme();
 					initTxtBox();
+					vizu.updatePers();
+
 				} else if (comboBox.getSelectedItem() == "FEMME") {
 					creeFemme();
 					initTxtBox();
-
+					vizu.updatePers();
 				}
 				comboBox_1.setModel(new DefaultComboBoxModel(prenomMembreFamille.toArray()));
 				if (membreFamille.size() > 1) {
@@ -354,7 +321,6 @@ public class Frame extends JFrame {
 
 			}
 		});
-
 		txtYy.addFocusListener(new FocusListener() {
 			@Override
 			public void focusGained(FocusEvent arg0) {
@@ -440,7 +406,6 @@ public class Frame extends JFrame {
 
 	}
 
-
 	/*
 	 * fonctions
 	 */
@@ -451,6 +416,14 @@ public class Frame extends JFrame {
 		txtDd.setText("");
 		txtMm.setText("");
 		txtYy.setText("");
+	}
+	public boolean estPlusVieux(Personne pers1, Personne pers2) {
+		String dateNaissPers1 = pers1.dateNaissance().substring(0,4);
+		String dateNaissPers2 = pers2.dateNaissance().substring(0,4);
+		int dateN1 = Integer.parseInt(dateNaissPers1);
+		int dateN2 = Integer.parseInt(dateNaissPers2);
+		System.out.println(dateN1);
+		return (dateN1 < dateN2);
 	}
 
 	public drawTree getSecondFrame() {

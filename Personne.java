@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Personne {
+	
+	private	boolean b = false;
+	private	boolean c = false;
 
 	private String prenom;
 	private String nom;
@@ -86,5 +89,53 @@ public abstract class Personne {
 	}
 	public boolean estRacine() {
 		return (pere == null && mere == null && enfants != null);
+	}
+	public void ajouterEnfant(Personne p) {
+		if(p instanceof Homme) {
+			enfants.add(p);
+			p.setPere((Homme) this);
+		} else {
+			enfants.add(p);
+			p.setMere((Femme) this);
+		}
+		
+	} 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public boolean isConnectPere() {	
+		return b;
+	}
+	public void connectedToPere(boolean state) {
+		b = state;
+	}
+	public boolean isConnectMere() {
+		return c;
+	}
+	public void connectedToMere(boolean state) {
+		c = state;
 	}
 }
