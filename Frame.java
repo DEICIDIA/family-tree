@@ -19,12 +19,7 @@ import java.awt.Font;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTextPane;
-import java.awt.GridBagLayout;
-import java.awt.FlowLayout;
-import java.awt.BorderLayout;
-import javax.swing.BoxLayout;
 import java.awt.GridLayout;
-
 
 public class Frame extends JFrame {
 
@@ -71,6 +66,7 @@ public class Frame extends JFrame {
 
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	public Frame() {
+		
 		setUndecorated(true);
 		setResizable(false);
 		setBackground(Color.DARK_GRAY);
@@ -198,6 +194,7 @@ public class Frame extends JFrame {
 		comboBox_2.setBackground(Color.WHITE);
 
 		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(null);
 		panel_2.setOpaque(false);
 		panel_2.setBounds(5, 129, 830, 506);
 		contentPane.add(panel_2);
@@ -208,35 +205,34 @@ public class Frame extends JFrame {
 		panel_2.add(vizu);
 		vizu.setLayout(new GridLayout(1, 0, 0, 0));
 
-		
-		
-		
 		btnAjouterFils.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (comboBox_1.getSelectedItem() != comboBox_2.getSelectedItem()) {
-					if(estPlusVieux(membreFamille.get(comboBox_1.getSelectedIndex()),membreFamille.get(comboBox_2.getSelectedIndex()))){
+					if (estPlusVieux(membreFamille.get(comboBox_1.getSelectedIndex()),
+							membreFamille.get(comboBox_2.getSelectedIndex()))) {
 						/*
-						 * si la personne1 est plus vieux alors personne1 est pere / mere de personne2 
+						 * si la personne1 est plus vieux alors personne1 est pere / mere de personne2
 						 * on affiche les liens entre l'enfants et son père / mère
 						 */
-						System.out.println("pers 1 plus vieux que pers 2");
-						membreFamille.get(comboBox_1.getSelectedIndex()).ajouterEnfant(membreFamille.get(comboBox_2.getSelectedIndex()));
+						membreFamille.get(comboBox_1.getSelectedIndex())
+								.ajouterEnfant(membreFamille.get(comboBox_2.getSelectedIndex()));
 						vizu.updateLiens(comboBox_2.getSelectedIndex());
 
 					} else {
 						/*
 						 * sinon la personne1 est l'enfant de la personne2
 						 */
-						membreFamille.get(comboBox_2.getSelectedIndex()).ajouterEnfant(membreFamille.get(comboBox_1.getSelectedIndex()));
+						membreFamille.get(comboBox_2.getSelectedIndex())
+								.ajouterEnfant(membreFamille.get(comboBox_1.getSelectedIndex()));
 						vizu.updateLiens(comboBox_1.getSelectedIndex());
 
-
 					}
-		
+
 				} else {
 					/*
-					 * affichage message d'erreur si un même personne est selectionné dans les comboBox
+					 * affichage message d'erreur si un même personne est selectionné dans les
+					 * comboBox
 					 */
 					JOptionPane.showMessageDialog(null, "meme personne selectionné");
 				}
@@ -257,9 +253,6 @@ public class Frame extends JFrame {
 
 		});
 
-		
-		
-		
 		btnSupprimerPersonne.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -278,18 +271,15 @@ public class Frame extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if (membreFamille.get(comboBox_1.getSelectedIndex()).estRacine()) {
-					membreFamille.get(comboBox_1.getSelectedIndex()).enfants.clear();
-				} else if (membreFamille.get(comboBox_1.getSelectedIndex()).estFeuille()) { // retire la personne de la
-																							// liste de son père
-					membreFamille.get(comboBox_1.getSelectedIndex()).pere().enfants
-							.remove(membreFamille.get(comboBox_1.getSelectedIndex()));
-					membreFamille.get(comboBox_1.getSelectedIndex()).mere().enfants
-							.remove(membreFamille.get(comboBox_1.getSelectedIndex()));
+					
+					
+				} else if (membreFamille.get(comboBox_1.getSelectedIndex()).estFeuille()) {
+					vizu.supprimerFeuille(membreFamille.get(comboBox_1.getSelectedIndex()));
+
 				}
 
 				membreFamille.remove(membreFamille.get(comboBox_1.getSelectedIndex()));
 				comboBox_1.removeItem(comboBox_1.getSelectedItem());
-
 			}
 		});
 
@@ -410,20 +400,20 @@ public class Frame extends JFrame {
 	 * fonctions
 	 */
 
-	public void initTxtBox() {
+	private void initTxtBox() {
 		txtNom.setText("");
 		txtPrenom.setText("");
 		txtDd.setText("");
 		txtMm.setText("");
 		txtYy.setText("");
 	}
-	public boolean estPlusVieux(Personne pers1, Personne pers2) {
-		String dateNaissPers1 = pers1.dateNaissance().substring(0,4);
-		String dateNaissPers2 = pers2.dateNaissance().substring(0,4);
-		int dateN1 = Integer.parseInt(dateNaissPers1);
-		int dateN2 = Integer.parseInt(dateNaissPers2);
-		System.out.println(dateN1);
-		return (dateN1 < dateN2);
+
+	private boolean estPlusVieux(Personne pers1, Personne pers2) {
+		String dateNaissPers1 = pers1.dateNaissance().substring(0, 4);
+		String dateNaissPers2 = pers2.dateNaissance().substring(0, 4);
+		int dateNP1 = Integer.parseInt(dateNaissPers1);
+		int dateNP2 = Integer.parseInt(dateNaissPers2);
+		return (dateNP1 < dateNP2);
 	}
 
 	public drawTree getSecondFrame() {
@@ -435,7 +425,7 @@ public class Frame extends JFrame {
 
 	}
 
-	public boolean isValidDate(String inDate) {
+	private boolean isValidDate(String inDate) {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		dateFormat.setLenient(false);
 		try {
@@ -446,26 +436,24 @@ public class Frame extends JFrame {
 		return true;
 	}
 
-	public void creeHomme() {
+	private void creeHomme() {
 		dateN = (txtYy.getText() + "-" + txtMm.getText() + "-" + txtDd.getText());
 		if (isValidDate(dateN)) {
 			membreFamille.add(new Homme(txtPrenom.getText(), txtNom.getText()));
 			membreFamille.get(i).SetDateNaissance(dateN);
 			prenomMembreFamille.add(txtPrenom.getText());
-			repaint();
 			i++;
 		} else {
 			JOptionPane.showMessageDialog(null, "DATE CHOISI INCORRECTE");
 		}
 	}
 
-	public void creeFemme() {
+	private void creeFemme() {
 		dateN = (txtYy.getText() + "-" + txtMm.getText() + "-" + txtDd.getText());
 		if (isValidDate(dateN)) {
 			membreFamille.add(new Femme(txtPrenom.getText(), txtNom.getText()));
 			membreFamille.get(i).SetDateNaissance(dateN);
 			prenomMembreFamille.add(txtPrenom.getText());
-			repaint();
 			i++;
 		} else {
 			JOptionPane.showMessageDialog(null, "DATE CHOISI INCORRECTE");

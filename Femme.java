@@ -1,5 +1,5 @@
 public class Femme extends Personne {
-	private int salaire;
+	private double salaire;
 	public Femme(String prenom, String nom) {
 		super(prenom, nom);
 	}
@@ -9,6 +9,6 @@ public class Femme extends Personne {
 		p.setMere(this);
 	}
 	public void wageGap(int salaire) {
-		this.salaire*=0.75;	
+		this.salaire = salaire * 0.75;	
 	}
 }

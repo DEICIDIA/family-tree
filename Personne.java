@@ -2,10 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Personne {
-	
-	private	boolean b = false;
-	private	boolean c = false;
 
+	private boolean lienPere = false;
+	private boolean lienMere = false;
 	private String prenom;
 	private String nom;
 	private Personne pere = null;
@@ -25,8 +24,6 @@ public abstract class Personne {
 	public String prenom() {
 		return this.prenom;
 	}
-
-
 
 	public boolean estFeuille() {
 		return (enfants.size() == 0);
@@ -83,59 +80,39 @@ public abstract class Personne {
 	public Personne mere() {
 		return this.mere;
 	}
-	
+
 	public boolean estNoeud() {
 		return ((pere != null || mere != null) && enfants.size() != 0);
 	}
+
 	public boolean estRacine() {
 		return (pere == null && mere == null && enfants != null);
 	}
+
 	public void ajouterEnfant(Personne p) {
-		if(p instanceof Homme) {
+		if (p instanceof Homme) {
 			enfants.add(p);
 			p.setPere((Homme) this);
 		} else {
 			enfants.add(p);
 			p.setMere((Femme) this);
 		}
-		
-	} 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	public boolean isConnectPere() {	
-		return b;
+
 	}
+
+	public boolean isConnectedToPere() {
+		return lienPere;
+	}
+
 	public void connectedToPere(boolean state) {
-		b = state;
+		lienPere = state;
 	}
-	public boolean isConnectMere() {
-		return c;
+
+	public boolean isConnectedToMere() {
+		return lienMere;
 	}
+
 	public void connectedToMere(boolean state) {
-		c = state;
+		lienMere = state;
 	}
 }
